@@ -2,6 +2,7 @@ package demo;
 
 import htn.*;
 import htn.tasks.*;
+import jexl.JexlPredicate;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -86,11 +87,11 @@ public class Executor {
         worldState.hour = 5;
 
         long time = System.nanoTime();
-        final int steps = 10000;
+        final int steps = 100;
         for(int i = 0; i < steps; ++i){
-//            System.out.println("Hour "+worldState.hour);
+            System.out.println("Hour "+worldState.hour);
             List<PrimitiveTask<DemoWorldState>> taskList = pg.findPlan(worldState);
-//            System.out.println(taskList.stream().map(Task::toString).collect(Collectors.joining(" - ")));
+            System.out.println(taskList.stream().map(Task::toString).collect(Collectors.joining(" - ")));
             //execute plan
             for(PrimitiveTask<DemoWorldState> task : taskList)
                 task.apply(worldState);

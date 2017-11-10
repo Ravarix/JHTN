@@ -40,6 +40,20 @@ public class BiArgTask<T,TArg1, TArg2> extends PrimitiveTask<T>{
         return newTask;
     }
 
+    public PrimitiveTask<T> with(Function<T, TArg1> arg1, TArg2 arg2){
+        BiArgTask<T,TArg1, TArg2> newTask = new BiArgTask<>(name, condition, effect);
+        newTask.arg1 = arg1;
+        newTask.arg2 = t -> arg2;
+        return newTask;
+    }
+
+    public PrimitiveTask<T> with(TArg1 arg1, Function<T, TArg2> arg2){
+        BiArgTask<T,TArg1, TArg2> newTask = new BiArgTask<>(name, condition, effect);
+        newTask.arg1 = t -> arg1;
+        newTask.arg2 = arg2;
+        return newTask;
+    }
+
     @Override
     public boolean evaluate(T t) {
         cachedArg1 = arg1.apply(t);
